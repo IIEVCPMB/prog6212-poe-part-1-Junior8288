@@ -2,4 +2,62 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+	ViewBag.Title = "Claims";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="d-flex justify-content-between align-items-center mb-4">
+	<h2> My Books</h2>
+	<a href="/Books/Add" class="btn btn-primary"> + Add New Book </a>
+</div>
+
+
+<div class="card">
+	<div class="card-body">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Month</th>
+					<th>Classes Taught</th>
+					<th>Claim Amount</th>
+					<th>Description</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>January</td>
+					<td>Yes</td>
+					<td>Programming</td>
+					<td><span class="badge bg-warning">Pending</span></td>
+					<td>
+						<a href="/Books/Details/1" class="btn btn-sm btn-outline-primary">
+							View Details
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td>Design Patterns</td>
+					<td>Gang of Four</td>
+					<td>Software Engineering</td>
+					<td><span class="badge bg-success">Approved</span></td>
+					<td>
+						<a href="/Books/Details/2" class="btn btn-sm btn-outline-primary">
+							View Details
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td>JavaScrit Guide</td>
+					<td>Mozilla Foundation</td>
+					<td>Web Development</td>
+					<td><span class="badge bg-danger">Declined</span></td>
+					<td>
+						<a href="/Books/Details/3" class="btn btn-sm btn-outline-primary">
+							View Details
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

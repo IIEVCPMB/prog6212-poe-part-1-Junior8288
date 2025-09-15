@@ -2,4 +2,48 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+	ViewBag.Title = "Claims";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div class="row">
+	<div class="col-lg-8 mc-auto">
+		<div class="card">
+			<div class="card-header">
+				<h3>New Claim</h3>
+			</div>
+			<div class="card-body">
+				<form>
+					<div class="mb-3">
+						<label class="form-label">Month</label>
+						<input type="text" class="form-control" placeholder="Enter Month" />
+					</div>
+					<div class="mb-3">
+						<label class="form-label">Work</label>
+						<input type="text" class="form-control" placeholder="Enter Work" />
+					</div>
+					<div class="mb-3">
+						<label class="form-label">Claim Amount</label>
+						<input type="text" class="form-control" placeholder="Enter Claim Amount" />
+					</div>
+					
+					<div class="mb-3">
+						<label class="form-label">Description</label>
+						<textarea class="form-control" rows="4" placeholder="Book Description..." />
+					</div>
+
+					<div class="mb-2">
+						<label class="form-labe">Supporting Document</label>
+						<input type="file" class="form-control"></input>
+						<small class="form-text text-muted"> Upload monthly document</small>
+
+					</div>
+					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+						<a href="/AddClaim" class="btn btn-secondary me-md-2">Cancel</a>
+						<button type="submit" class="btn btn-primary">Add Claim</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
