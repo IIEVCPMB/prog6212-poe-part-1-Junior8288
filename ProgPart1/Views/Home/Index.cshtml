@@ -1,8 +1,53 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome, Lectuer</h1>
+</div>
+
+<div="row">
+    <div class="text-center">
+        <h1 class="display-4">
+            Add Claim
+        </h1>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="card">
+        <div class="card-body text-center">
+            <h3 class="card-title">
+                Claim Portal
+            </h3>
+            <p class="card-text">
+                Add Claim for the month
+            </p>
+            <a href="/AddClaim" class="btn btn-primary">Add Claim</a>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body text-center">
+            <h3 class="card-title">
+                View Claim
+            </h3>
+            <p class="card-text">
+                Review all claims submitted, edit or delete claims
+            </p>
+            <a href="/ViewClaim" class="btn btn-primary">Claim Dashboard</a>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body text-center">
+            <h3 class="card-title">
+                Report
+            </h3>
+            <p class="card-text">
+                Any problems or errors must be report here
+            </p>
+            <a href="/Report" class="btn btn-primary">Report</a>
+        </div>
+    </div>
 </div>
