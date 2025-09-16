@@ -2,12 +2,12 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-	ViewBag.Title = "Claims";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Manager Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="d-flex justify-content-between align-items-center mb-4">
-	<h2> My Claims</h2>
-	<a href="/AddClaim/Add" class="btn btn-primary"> + Add New Book </a>
+	<h2> Manager Dashboard</h2>
 </div>
 
 
@@ -20,7 +20,7 @@
 					<th>Classes Taught</th>
 					<th>Claim Amount</th>
 					<th>Description</th>
-					
+
 				</tr>
 			</thead>
 			<tbody>
@@ -30,7 +30,7 @@
 					<td>R12000</td>
 					<td><span class="badge bg-warning">Pending</span></td>
 					<td>
-						<a href="/AddClaim/Details/1" class="btn btn-sm btn-outline-primary">
+						<a href="/Manager/Details/1" class="btn btn-sm btn-outline-primary">
 							View Details
 						</a>
 					</td>
@@ -41,7 +41,7 @@
 					<td>R10000</td>
 					<td><span class="badge bg-success">Approved</span></td>
 					<td>
-						<a href="/AddClaim/Details/2" class="btn btn-sm btn-outline-primary">
+						<a href="/Manager/Details/2" class="btn btn-sm btn-outline-primary">
 							View Details
 						</a>
 					</td>
@@ -52,13 +52,13 @@
 					<td>R0</td>
 					<td><span class="badge bg-danger">Declined</span></td>
 					<td>
-						<a href="/AddClaim/Details/3" class="btn btn-sm btn-outline-primary">
+						<a href="/Manager/Details/3" class="btn btn-sm btn-outline-primary">
 							View Details
 						</a>
 					</td>
 				</tr>
-
 			</tbody>
 		</table>
 	</div>
 </div>
+

@@ -11,10 +11,13 @@ namespace ProgPart1.Controllers
 
         public IActionResult Add()
         {
-           
-            return View("ClaimSubmitted");
-        }
 
-       
+            return View();
+        }
+        public IActionResult Details(int id)
+        {
+            return View();
+
+        }
     }
 }

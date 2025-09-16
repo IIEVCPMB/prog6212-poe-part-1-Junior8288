@@ -2,15 +2,16 @@
 
 namespace ProgPart1.Controllers
 {
-    public class ViewClaimController : Controller
+    public class ManagerController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
-        public IActionResult Delete() 
-        { 
-            return View("ClaimDeleted");
+        public IActionResult Details(int id)
+        {
+            return View();
+
         }
     }
 }

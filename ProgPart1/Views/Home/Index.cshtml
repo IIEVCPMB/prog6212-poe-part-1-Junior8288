@@ -3,33 +3,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome, Lectuer</h1>
+<div class="text-center mb-4">
+    <h1 class="display-4">Welcome, Lecturer</h1>
 </div>
 
-
-
 <div class="row">
-    <div class="card">
-        <div class="card-body text-center">
-            <h3 class="card-title">
-                Claim Portal
-            </h3>
-            <p class="card-text">
-                Add Claim for the month
-            </p>
-            <a href="/AddClaim" class="btn btn-primary">Add Claim</a>
+    <div class="col-md-6 mb-3">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h3 class="card-title">Claim Portal</h3>
+                <p class="card-text">Add Claim for the month</p>
+                <a href="/AddClaim" class="btn btn-primary">Add Claim</a>
+            </div>
         </div>
     </div>
-    <div class="card">
-        <div class="card-body text-center">
-            <h3 class="card-title">
-                View Claim
-            </h3>
-            <p class="card-text">
-                Review all claims submitted, edit or delete claims
-            </p>
-            <a href="/ViewClaim" class="btn btn-primary">Claim Dashboard</a>
+    <div class="col-md-6 mb-3">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h3 class="card-title">View Claim</h3>
+                <p class="card-text">Review all claims submitted, edit or delete claims</p>
+                <a href="/ViewClaim" class="btn btn-primary">Claim Dashboard</a>
+            </div>
         </div>
     </div>
 </div>
