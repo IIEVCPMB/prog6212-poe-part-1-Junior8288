@@ -118,6 +118,17 @@ namespace ProgPart1.Controllers
             return RedirectToAction(nameof(Index));
         }
     }
+        public IActionResult DownloadFile(string fileName)
+        {
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", fileName);
+            if (!System.IO.File.Exists(filePath)) return NotFound();
 
-}
+            var fileBytes = System.IO.File.ReadAllBytes(filePath);
+            var originalFileName = Path.GetFileName(fileName);
+
+            return File(fileBytes, "application/octet-stream", originalFileName);
+        }
+
+
+    }
 }

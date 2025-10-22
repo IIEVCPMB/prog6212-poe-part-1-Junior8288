@@ -38,8 +38,8 @@
 			<table class="table">
 				<thead>
 					<tr>
+						<th>Name</th>
 						<th>Month</th>
-						<th>Taught</th>
 						<th>Amount</th>
 						<th>Description</th>
 						<th>Status</th>
@@ -53,6 +53,7 @@
 							<td><strong>@claims.SubmittedBy</strong></td>
 							<td>@claims.Month</td>
 							<td>@claims.Amount</td>
+							<td>@claims.Description</td>
 							<td>
 								@if (claims.Status == ProgPart1.Models.ClaimStatus.Pending)
 								{

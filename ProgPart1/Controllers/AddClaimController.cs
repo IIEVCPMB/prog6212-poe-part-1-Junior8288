@@ -1,7 +1,9 @@
-﻿using LibraryManagementSystem.Services;
+﻿using ProgPart1.Services;
 using Microsoft.AspNetCore.Mvc;
+using ProgPart1.ClaimStore;
 using ProgPart1.Data;
 using ProgPart1.Models;
+using System.Security.Claims;
 
 namespace ProgPart1.Controllers
 {
@@ -162,5 +164,62 @@ namespace ProgPart1.Controllers
                 return BadRequest("Error downloading file: " + ex.Message);
             }
         }
+          
+
+            // Show claim submission form
+            public IActionResult SubmitClaim()
+            {
+                return View();
+            }
+
+            // Handle submission
+            [HttpPost]
+            public IActionResult SubmitClaim(Claims claim, IFormFile file)
+            {
+            // Replace this line:
+            // claim.Id = ClaimData.AddClaim.Count > 0 ? ClaimsDataStore.Claims.Max(c => c.Id) + 1 : 1;
+
+            // With this corrected line:
+            claim.Id = ClaimsDataStore.Claims.Count > 0 ? ClaimsDataStore.Claims.Max(c => c.Id) + 1 : 1;
+                claim.CoordinatorStatus = "Pending";
+                claim.ManagerStatus = "Pending";
+                claim.SubmittedDate = DateTime.Now;
+
+                if (file != null && file.Length > 0)
+                {
+                    var fileName = FileEncryptionService.SaveFile(file);
+                    claim.FileName = fileName;
+                }
+
+                ClaimsDataStore.AddClaim(claim); // Persist in JSON
+                return RedirectToAction("ClaimSuccess");
+            }
+
+            // Claim submitted successfully
+            public IActionResult ClaimSuccess()
+            {
+                return View();
+            }
+
+            // View claim details
+            public IActionResult ViewClaims(int id)
+            {
+                var claim = ClaimsDataStore.Claims.FirstOrDefault(c => c.Id == id);
+                if (claim == null) return NotFound();
+
+                return View(claim);
+            }
+
+            // Download uploaded document
+            public IActionResult DownloadFile(string fileName)
+            {
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", fileName);
+
+                if (!System.IO.File.Exists(filePath))
+                    return NotFound();
+
+                var fileBytes = System.IO.File.ReadAllBytes(filePath);
+                return File(fileBytes, "application/octet-stream", fileName.Substring(fileName.IndexOf('_') + 1));
+            }
+        }
     }
-}

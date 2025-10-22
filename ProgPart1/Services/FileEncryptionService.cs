@@ -1,12 +1,31 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace LibraryManagementSystem.Services
+namespace ProgPart1.Services
 {
     public class FileEncryptionService
     {
         private static readonly byte[] Key = Encoding.UTF8.GetBytes("MyWayIsTheBestMyWayIsTheBest");
-        private static readonly byte[] IV = Encoding.UTF8.GetBytes("MyInitVector16!!"); 
+        private static readonly byte[] IV = Encoding.UTF8.GetBytes("MyInitVector16!!");
+
+        public static string UploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles");
+
+        public static string SaveFile(IFormFile file)
+        {
+            if (!Directory.Exists(UploadPath))
+                Directory.CreateDirectory(UploadPath);
+
+            // Prefix with GUID to avoid duplicate file names
+            string fileName = $"{Guid.NewGuid()}_{file.FileName}";
+            string filePath = Path.Combine(UploadPath, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+
+            return fileName;
+        }
 
 
         public async Task EncryptFileAsync( Stream input, string outputPath )

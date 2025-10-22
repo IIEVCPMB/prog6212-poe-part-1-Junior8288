@@ -12,6 +12,9 @@
         public ClaimStatus Status { get; set; }
         public string ReviewedBy { get; set; }
         public DateTime ReviewedDate { get; set; }
+        public string FileName { get; set; }
+        public string CoordinatorStatus { get; set; } = "Pending";
+        public string ManagerStatus { get; set; } = "Pending";
         public List<UploadedDocument> Documents { get; set; } = new List<UploadedDocument>();
         public List<ClaimReview> Reviews { get; set; } = new List<ClaimReview>();
 

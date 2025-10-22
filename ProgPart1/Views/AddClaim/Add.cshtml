@@ -7,11 +7,11 @@
 
 <div class="row">
     <div class="col-lg-8 mx-auto">
-        <div class="card">
+        <div class="card card-height">
             <div class="card-header">
                 <h3>New Claim</h3>
             </div>
-            <div class="card-body">
+            <div class="card-body mb-10">
                 <form asp-action="Add" method="post" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
 
@@ -60,7 +60,7 @@
                     </div>
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="/Books" class="btn btn-secondary me-md-2">Cancel</a>
+                        <a href="/AddClaim" class="btn btn-secondary me-md-2">Cancel</a>
                         <button type="submit" class="btn btn-primary">Add Claim</button>
                     </div>
                 </form>
