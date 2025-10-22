@@ -5,7 +5,7 @@ namespace ProgPart1.Services
 {
     public class FileEncryptionService
     {
-        private static readonly byte[] Key = Encoding.UTF8.GetBytes("MyWayIsTheBestMyWayIsTheBest");
+        private static readonly byte[] Key = Encoding.UTF8.GetBytes("MyWayIsTheBestMyWayIsTheBest1234");
         private static readonly byte[] IV = Encoding.UTF8.GetBytes("MyInitVector16!!");
 
         public static string UploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles");
