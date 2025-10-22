@@ -1,65 +1,126 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<ProgPart1.Models.Claims>
 @{
     ViewBag.Title = "Manager Dashboard";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-	<h2> Manager Dashboard</h2>
+    <h2>Manager Dashboard - All Claims</h2>
+    <div>
+        <span class="badge bg-warning me-2">@ViewBag.PendingCount Pending</span>
+        <span class="badge bg-success me-2">@ViewBag.ApprovedCount Approved</span>
+        <span class="badge bg-danger me-2">@ViewBag.DeclinedCount Declined</span>
+    </div>
 </div>
 
+<ul class="nav nav mb-4">
+    <li class="nav-item">
+        <a class="nav-link" @(ViewBag.Filter =="all" ? "active" : "") href="/Manager?filter=all">
+            All Claims (@Model.Count)    
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" @(ViewBag.Filter == "pending" ? "active" : "") href="/Manager?filter=pending">
+            Pending (@ViewBag.PendingCount)    
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" @(ViewBag.Filter == "approved" ? "active" : "") href="/Manager?filter=approved">
+            Approved (@ViewBag.ApprovedCount)    
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" @(ViewBag.Filter == "declined" ? "active" : "") href="/Manager?filter=declined">
+            Declined (@ViewBag.DeclinedCount)    
+        </a>
+    </li>
+</ul>
 
 <div class="card">
-	<div class="card-body">
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Month</th>
-					<th>Classes Taught</th>
-					<th>Claim Amount</th>
-					<th>Description</th>
+    <div class="card-body">
+        @if (Model.Count == 0)
+        {
+            <div class="text-center py-5">
+                <p class="text-muted">No claims found</p>
+            </div>
+        }
+        else
+        {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Month
+                    </th>
+                    <th>
+                        Classes Taught
+                    </th>
+                    <th>
+                        Claim Amount
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Submission Date
+                    </th>
+                    <th>
+                        Submitted By
+                    </th>
+                    <th>
+                        ReviewedBy
+                    </th>
+                    <th>
+                        ReviewedDate
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var claims in Model)
+                {
+                    <tr>
+                        <td><strong>@claims.Month</strong></td>
+                        <td>@claims.Taught</td>
+                        <td>@claims.Amount</td>
+                        <td>@claims.Description</td>
+                        <td>@claims.Status</td>
+                        <td>@claims.SubmittedDate</td>
+                        <td>@claims.SubmittedBy</td>
+                        <td>@claims.ReviewedBy</td>
+                        <td>@claims.ReviewedDate</td>
+                        <td>
+                            @if (claims.Status == ProgPart1.Models.ClaimStatus.Pending)
+                            {
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            }
+                            else if (claims.Status == ProgPart1.Models.ClaimStatus.Approved)
+                            {
+                                <span class="badge bg-success">Approved</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Declined</span>
+                            }
+                        </td>
+                        <td>@claims.SubmittedDate.ToString("MMM dd, yyyy")</td>
+                        <td>
+                                <a asp-controller="Manager" asp-action="Details" asp-route-id="@claims.Id" class="btn btn-sm btn-primary">
 
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>January</td>
-					<td>Yes</td>
-					<td>R12000</td>
-					<td><span class="badge bg-warning">Pending</span></td>
-					<td>
-						<a href="/Manager/Details/1" class="btn btn-sm btn-outline-primary">
-							View Details
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>Februray</td>
-					<td>Yes</td>
-					<td>R10000</td>
-					<td><span class="badge bg-success">Approved</span></td>
-					<td>
-						<a href="/Manager/Details/2" class="btn btn-sm btn-outline-primary">
-							View Details
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>March</td>
-					<td>No</td>
-					<td>R0</td>
-					<td><span class="badge bg-danger">Declined</span></td>
-					<td>
-						<a href="/Manager/Details/3" class="btn btn-sm btn-outline-primary">
-							View Details
-						</a>
-					</td>
-				</tr>
-
-			</tbody>
-		</table>
-	</div>
+                                @(claims.Status == ProgPart1.Models.ClaimStatus.Pending ? "Review" : "View")
+                            </a>
+                        </td>
+                    </tr>   
+                }
+            </tbody>
+        </table>
+        }
+    </div>
 </div>
+
 

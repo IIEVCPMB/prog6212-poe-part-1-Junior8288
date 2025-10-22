@@ -1,9 +1,8 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
+@model ProgPart1.Models.Claims
 @{
-    ViewBag.Title = "Claims";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Add Claim";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row">
@@ -13,42 +12,59 @@
                 <h3>New Claim</h3>
             </div>
             <div class="card-body">
-                <form>
+                <form asp-action="Add" method="post" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+
                     <div class="mb-3">
-                        <label class="form-label">Month</label>
-                        <input type="text" class="form-control" placeholder="Enter Month" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Work</label>
-                        <input type="text" class="form-control" placeholder="Enter Work" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Claim Amount</label>
-                        <input type="text" class="form-control" placeholder="Enter Claim Amount" />
+                        <label asp-for="SubmittedBy" class="form-label">Submitted By</label>
+                        <input asp-for="SubmittedBy" type="text" class="form-control" placeholder="Enter Your Name" />
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea class="form-control" rows="4" placeholder="Description..."></textarea>
+                        <label asp-for="Amount" class="form-label">Amount</label>
+                        <input asp-for="Amount" type="text" class="form-control" placeholder="0" />
                     </div>
 
-                    <div class="mb-2">
-                        <label class="form-label">Supporting Document</label>
-                        <input type="file" class="form-control" />
-                        <small class="form-text text-muted">Upload monthly document</small>
+                    <div class="mb-3">
+                        <label asp-for="Month" class="form-label">Month</label>
+                        <select asp-for="Month" class="form-select">
+                            <option>January</option>
+                            <option>February</option>
+                            <option>March</option>
+                            <option>April</option>
+                            <option>May</option>
+                            <option>June</option>
+                            <option>July</option>
+                            <option>August</option>
+                            <option>September</option>
+                            <option>October</option>
+                            <option>November</option>
+                            <option>December</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label">Description</label>
+                        <textarea asp-for="Description" class="form-control" rows="4" placeholder="Claim Description..."></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Taught" class="form-label">Taught</label>
+                        <textarea asp-for="Taught" class="form-control" rows="4" placeholder="What your course"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Supporting Documents</label>
+                        <input type="file" name="documents" class="form-control" multiple accept=".pdf,.txt,.docx,.xlsx" />
+                        <small class="form-text text-muted">Upload Claim document</small>
                     </div>
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="/AddClaim" class="btn btn-secondary me-md-2">Cancel</a>
+                        <a href="/Books" class="btn btn-secondary me-md-2">Cancel</a>
                         <button type="submit" class="btn btn-primary">Add Claim</button>
                     </div>
                 </form>
             </div>
-
-            <div class="text-center mt-4">
-                <a href="@Url.Action("Index", "AddClaim")" class="btn btn-secondary">⬅ Back</a>
-            </div>
-
         </div>
     </div>
 </div>

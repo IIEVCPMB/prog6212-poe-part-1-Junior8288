@@ -1,8 +1,7 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ProgPart1.Models.Claims
+
 @{
-    ViewBag.Title = "Manager Details";
+    ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -14,56 +13,137 @@
     </ol>
 </nav>
 
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger"> @TempData["Error"]</div>
+}
+
 <div class="row">
     <div class="col-lg-8">
         <div class="card">
-            <div class="card-header d-flex justify-content-between">
-                <h4> Claim</h4>
-                <span class="badge bg-warning"> Pending Service</span>
+            <div class="card-header d-flex">
+                <h4>@Model.SubmittedBy</h4>
+                <div>
+                    @if (Model.Status == ProgPart1.Models.ClaimStatus.Pending)
+                    {
+                        <span class="badge bg-warning fs-6">⏳ Pending Review</span>
+                    }
+                    else if (Model.Status == ProgPart1.Models.ClaimStatus.Approved)
+                    {
+                        <span class="badge bg-success fs-6">Approved</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger fs-6"> Declined</span>
+                    }
+                </div>
             </div>
             <div class="card-body">
                 <div class="row mb-3">
-                    <div class="col-sm-3"><strong>Month</strong></div>
-                    <div class="col-sm-9"><strong>January</strong></div>
+                    <div class="col-sm-3"><strong>Submitted By</strong></div>
+                    <div class="col-sm-9">@Model.SubmittedBy</div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-sm-3"><strong>Classes Taught</strong></div>
-                    <div class="col-sm-9"><strong>Yes</strong></div>
+                    <div class="col-sm-3"><strong>Month</strong></div>
+                    <div class="col-sm-9">@Model.Month</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-3"><strong>Taught</strong></div>
+                    <div class="col-sm-9">@Model.Taught</div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-3"><strong>Amount</strong></div>
-                    <div class="col-sm-9"><strong>R12000</strong></div>
+                    <div class="col-sm-9">@Model.Amount</div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-3"><strong>Description</strong></div>
-                    <div class="col-sm-9"><strong>Have taught 27 days in this month </strong></div>
+                    <div class="col-sm-9">@Model.Description</div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="col-lg-4">
         <div class="card">
             <div class="card-header">
-                <h5>Supporting Documents</h5>
+                @if (Model.Status == ProgPart1.Models.ClaimStatus.Pending)
+                {
+                    <hr class="my-4">
+                    <h5>Submit Your Review</h5>
+
+                    <form asp-action="Approve" method="post" class="mb-3">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@Model.Id" />
+
+                        <div class="mb-3">
+                            <label class="form-label">Approval Comments (Optional)</label>
+                            <textarea name="comments" class="form-control" rows="3" placeholder="Add any comments about why this claim is approved..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-lg">
+                            Approve Claim
+                        </button>
+                    </form>
+
+                    <form asp-action="Decline" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@Model.Id" />
+
+                        <div class="mb-3">
+                            <label class="form-label">Reason for Declining *</label>
+                            <textarea name="comments" class="form-control" rows="3" placeholder="Please provide detailed reasons for declining..." required></textarea>
+                            <small class="form-text text-muted">This will be visible to the Reviewer who submitted the book.</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-danger btn-lg">
+                            Decline Claim
+                        </button>
+                        <a href="/Manager" class="btn btn-secondary btn-lg">Cancel</a>
+                    </form>
+                }
             </div>
-            <div class="card-body d-grid gap-2">
-                <div class="card-body">
-                    <div class="list-group-item d-flex justify-content-between align-items-center">
-                        Document
-                        <a href="#" class="btn btn-sm btn-outline-primary">View</a>
-                    </div>
-                    <div class="list-group-item d-flex justify-content-between align-items-center">
-                        ID
-                        <a href="#" class="btn btn-sm btn-outline-primary">View</a>
-                    </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-4">
+    <div class="card">
+        <div class="card-header">
+            <h5>Supporting Documents (@Model.Documents.Count)</h5>
+        </div>
+        <div class="card-body">
+            @if (Model.Documents.Count == 0)
+            {
+                <p class="text-muted">No Documents Uploaded</p>
+            }
+            else
+            {
+                <div class="list-group list-group-flush">
+                    @foreach (var doc in Model.Documents)
+                    {
+                        <div class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div class="flex-grow-1">
+                                    <strong> @doc.FileName</strong>
+                                    <small class="text-muted">
+                                        @doc.FileSize KB
+                                        @doc.UploadedDate.ToString("MM dd, yyyy")
+                                    </small>
+                                </div>
+                                <a href="/Claims/DownloadDocument?ClaimId=@Model.Id&docId=@doc.Id"
+                                   class="btn btn-sm btn-primary">
+                                    Download
+                                </a>
+                            </div>
+                        </div>
+                    }
                 </div>
-            </div>
+            }
         </div>
     </div>
     <div class="text-center mt-4">
         <a href="/Manager/Index" class="btn btn-secondary">⬅ Back</a>
     </div>
-
 </div>
+
+
 
