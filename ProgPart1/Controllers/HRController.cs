@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ProgPart1.Models;
+using ProgPart1.ViewModel;
 using static ProgPart1.Models.HR;
 
 [Authorize(Roles = "HR")]
