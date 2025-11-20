@@ -39,4 +39,27 @@ public class HRController : Controller
 
         return View(model);
     }
+    async Task CreateDefaultHRUser(IServiceProvider serviceProvider)
+    {
+        var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
+
+        var hr = await userManager.FindByEmailAsync("admin@hr.com");
+
+        if (hr == null)
+        {
+            hr = new AppUser
+            {
+                UserName = "admin@hr.com",
+                Email = "admin@hr.com",
+                FirstName = "System",
+                LastName = "Admin"
+            };
+
+            await userManager.CreateAsync(hr, "Admin@123");
+            await userManager.AddToRoleAsync(hr, "HR");
+        }
+    }
+
+    await CreateDefaultHRUser(app.Services);
+
 }
