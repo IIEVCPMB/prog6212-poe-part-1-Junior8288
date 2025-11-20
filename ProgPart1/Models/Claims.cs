@@ -7,7 +7,7 @@ namespace ProgPart1.Models
         public int Id { get; set; }
         public string Month { get; set; }
         public string Taught { get; set; }
-        public AppUser Lecturer { get; set; }
+        public HR Lecturer { get; set; }
         public int Amount { get; set; }
         public decimal HourlyRate { get; set; }
         public string Description { get; set; }

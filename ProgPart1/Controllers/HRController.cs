@@ -8,9 +8,9 @@ using static ProgPart1.Models.HR;
 [Authorize(Roles = "HR")]
 public class HRController : Controller
 {
-    private readonly UserManager<AppUser> _userManager;
+    private readonly UserManager<HR> _userManager;
 
-    public HRController(UserManager<AppUser> userManager)
+    public HRController(UserManager<HR> userManager)
     {
         _userManager = userManager;
     }
@@ -20,7 +20,7 @@ public class HRController : Controller
     [HttpPost]
     public async Task<IActionResult> CreateUser(CreateUserVM model)
     {
-        var user = new AppUser
+        var user = new HR
         {
             FirstName = model.FirstName,
             LastName = model.LastName,
@@ -41,13 +41,13 @@ public class HRController : Controller
     }
     async Task CreateDefaultHRUser(IServiceProvider serviceProvider)
     {
-        var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
+        var userManager = serviceProvider.GetRequiredService<UserManager<HR>>();
 
         var hr = await userManager.FindByEmailAsync("admin@hr.com");
 
         if (hr == null)
         {
-            hr = new AppUser
+            hr = new HR
             {
                 UserName = "admin@hr.com",
                 Email = "admin@hr.com",

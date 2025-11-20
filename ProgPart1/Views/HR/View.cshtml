@@ -1,0 +1,37 @@
+﻿@model ProgPart1.ViewModel.CreateUserVM
+
+<h2>Create Lecturer</h2>
+
+<form asp-action="CreateUser" method="post">
+    <div>
+        <label>First Name</label>
+        <input asp-for="FirstName" />
+        <span asp-validation-for="FirstName"></span>
+    </div>
+
+    <div>
+        <label>Last Name</label>
+        <input asp-for="LastName" />
+        <span asp-validation-for="LastName"></span>
+    </div>
+
+    <div>
+        <label>Email</label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <div>
+        <label>Password</label>
+        <input asp-for="Password" type="password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+
+    <div>
+        <label>Hourly Rate</label>
+        <input asp-for="HourlyRate" />
+        <span asp-validation-for="HourlyRate"></span>
+    </div>
+
+    <button type="submit">Create</button>
+</form>

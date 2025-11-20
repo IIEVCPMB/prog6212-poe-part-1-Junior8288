@@ -1,0 +1,20 @@
+﻿@model IEnumerable<ProgPart1.Models.HR>
+
+<h2>Users</h2>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Hourly Rate</th>
+    </tr>
+
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.FirstName @user.LastName</td>
+            <td>@user.Email</td>
+            <td>@user.HourlyRate</td>
+        </tr>
+    }
+</table>
