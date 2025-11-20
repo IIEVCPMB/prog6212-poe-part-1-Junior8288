@@ -30,7 +30,7 @@ namespace ProgPart1.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Error = "Unable to load books.";
+                ViewBag.Error = "Unable to load Claims.";
                 return View(new List<Claims>());
             }
     }
@@ -62,25 +62,25 @@ namespace ProgPart1.Controllers
         {
             string reviewedBy = "Admin User";
             string reviewComments = string.IsNullOrWhiteSpace(comments)
-                ? "Approved for library collection"
+                ? "Approved for Manager Approval"
                 : comments;
 
             var success = ClaimData.UpdateClaimStatus(id, ClaimStatus.Approved, reviewedBy, reviewComments);
 
             if (success)
             {
-                TempData["Success"] = "Book approved successfully!";
+                TempData["Success"] = "Claims approved successfully!";
             }
             else
             {
-                TempData["Error"] = "Book not found.";
+                TempData["Error"] = "Claims not found.";
             }
 
             return RedirectToAction(nameof(Index));
         }
         catch (Exception ex)
         {
-            TempData["Error"] = "Error approving book.";
+            TempData["Error"] = "Error approving Claims.";
             return RedirectToAction(nameof(Index));
         }
     }
@@ -103,18 +103,18 @@ namespace ProgPart1.Controllers
 
             if (success)
             {
-                TempData["Success"] = "Book declined.";
+                TempData["Success"] = "Claims declined.";
             }
             else
             {
-                TempData["Error"] = "Book not found.";
+                TempData["Error"] = "Claims not found.";
             }
 
             return RedirectToAction(nameof(Index));
         }
         catch (Exception ex)
         {
-            TempData["Error"] = "Error declining book.";
+            TempData["Error"] = "Error declining Claims.";
             return RedirectToAction(nameof(Index));
         }
     }

@@ -27,7 +27,7 @@ namespace ProgPart1.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.Error = "Unable to load books";
+                ViewBag.Error = "Unable to load claims";
                 return View(new List<Claims>());
             }
 
@@ -99,14 +99,14 @@ namespace ProgPart1.Controllers
                 }
 
                 ClaimData.AddClaim(claims);
-                TempData["Success"] = "Book submitted successfully";
+                TempData["Success"] = "claims submitted successfully";
                 return RedirectToAction(nameof(Index));
 
 
             }
             catch (Exception ex)
             {
-                ViewBag.Error = "Error submitting book: " + ex.Message;
+                ViewBag.Error = "Error submitting claims: " + ex.Message;
                 return View(claims);
             }
 
@@ -116,29 +116,29 @@ namespace ProgPart1.Controllers
         {
             try
             {
-                var book = ClaimData.GetClaimById(id);
-                if (book == null)
+                var claims = ClaimData.GetClaimById(id);
+                if (claims == null)
                 {
-                    TempData["Error"] = "Book not found.";
+                    TempData["Error"] = "claim not found.";
                     return View();
                 }
-                return View(book);
+                return View(claims);
             }
             catch (Exception e)
             {
-                TempData["Error"] = "Error loading book";
+                TempData["Error"] = "Error loading claim";
                 return RedirectToAction(nameof(Index));
             }
         }
 
-        public async Task<IActionResult> DownloadDocument(int bookId, int docId)
+        public async Task<IActionResult> DownloadDocument(int claimsId, int docId)
         {
             try
             {
-                var book = ClaimData.GetClaimById(bookId);
-                if (book == null) { return NotFound("Book not found."); }
+                var claims = ClaimData.GetClaimById(claimsId);
+                if (claims == null) { return NotFound("claim not found."); }
 
-                var document = book.Documents.FirstOrDefault(doc => doc.Id == docId);
+                var document = claims.Documents.FirstOrDefault(doc => doc.Id == docId);
                 if (document == null) { return NotFound("Document not found."); }
 
                 var encryptedFilePath = Path.Combine(_environment.WebRootPath, document.FilePath.TrimStart('/'));
@@ -176,10 +176,7 @@ namespace ProgPart1.Controllers
             [HttpPost]
             public IActionResult SubmitClaim(Claims claim, IFormFile file)
             {
-            // Replace this line:
-            // claim.Id = ClaimData.AddClaim.Count > 0 ? ClaimsDataStore.Claims.Max(c => c.Id) + 1 : 1;
-
-            // With this corrected line:
+          
             claim.Id = ClaimsDataStore.Claims.Count > 0 ? ClaimsDataStore.Claims.Max(c => c.Id) + 1 : 1;
                 claim.CoordinatorStatus = "Pending";
                 claim.ManagerStatus = "Pending";
