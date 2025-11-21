@@ -91,4 +91,6 @@ GO
 ----------------------------------------
                 END
 ----------------------------------------
-            
+This a powerpoint on the updated part 2 and 3 of the poe. This will give you a idea of how i 
+done it.           
+[Claims System.pptx](https://github.com/user-attachments/files/23673288/Claims.System.pptx)
